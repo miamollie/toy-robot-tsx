@@ -15,10 +15,10 @@ export interface GameState {
 type Orientation = "NORTH" | "SOUTH" | "EAST" | "WEST";
 
 const Movements: Record<Orientation, Coord> = {
-  NORTH: [-1, 0],
-  EAST: [0, 1],
-  SOUTH: [1, 0],
-  WEST: [0, -1],
+  NORTH: [0, -1],
+  SOUTH: [0, 1],
+  EAST: [1, 0],
+  WEST: [-1, 0],
 };
 
 const gameDefaults = {

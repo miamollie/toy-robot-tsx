@@ -9,8 +9,8 @@ import { getRandomInt } from "./utils/getRandomInt";
 
 function App() {
   const [gridDimensions, setGridDimensions] = useState({
-    height: 5,
-    width: 10,
+    width: 3,
+    height: 4,
   });
   const [initialPosition, setInitialPosition] = useState<Coord>([0, 0]);
 

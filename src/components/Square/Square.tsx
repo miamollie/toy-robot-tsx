@@ -18,10 +18,11 @@ const Square = function ({ coord }: { coord: Coord }) {
   // const showAnimation = attemptedInvalidMove ? "1px solid" : undefined;
   return (
     <span
+      data-testid="gridItem"
       style={{
         height: "20px",
         width: "20px",
-        display: "inline-block",
+        // display: "inline-block",
         backgroundColor,
         border,
       }}
