@@ -7,10 +7,9 @@ Implements the Toy Robot code test.
 ## TODO
 - Add tests with RTL
 - Styles with css-in-js
-- finish UI
-- dark mode/light mode
 - Add nice transition animations to move the Robot
 - optimize for performance
+- dark mode/light mode
 ## Available Scripts
 
 In the project directory, you can run:

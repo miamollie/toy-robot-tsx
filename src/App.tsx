@@ -1,20 +1,93 @@
-import React from "react";
+import React, { useState } from "react";
+import GameGrid from "./components/GameGrid";
 import {
   Coord,
   GameStateProvider,
   useGameContext,
-} from "./context/gameContext";
+} from "./context/GameContext";
+import { getRandomInt } from "./utils/getRandomInt";
 
 function App() {
+  const [gridDimensions, setGridDimensions] = useState({
+    height: 5,
+    width: 10,
+  });
+  const [initialPosition, setInitialPosition] = useState<Coord>([0, 0]);
+
+  function increaseGridWidth() {
+    setGridDimensions((prevDimensions) => {
+      return { width: prevDimensions.width + 1, height: prevDimensions.height };
+    });
+  }
+  function decreaseGridWidth() {
+    if (gridDimensions.width === 1) {
+      return;
+    }
+    setGridDimensions((prevDimensions) => {
+      return { width: prevDimensions.width - 1, height: prevDimensions.height };
+    });
+  }
+  function increaseGridHeight() {
+    setGridDimensions((prevDimensions) => {
+      return { width: prevDimensions.width, height: prevDimensions.height + 1 };
+    });
+  }
+  function decreaseGridHeight() {
+    if (gridDimensions.height === 1) {
+      return;
+    }
+    setGridDimensions((prevDimensions) => {
+      return { width: prevDimensions.width, height: prevDimensions.height - 1 };
+    });
+  }
+
+  function place() {
+    const x = getRandomInt(gridDimensions.height);
+    const y = getRandomInt(gridDimensions.width);
+    setInitialPosition([x, y]);
+  }
+
   return (
-    <GameStateProvider gridDimensions={{ height: 5, width: 5 }}>
-      <div>
-        <header>
-          <h1>Toy Robot</h1>
-        </header>
+    <>
+      <header>
+        <h1>Toy Robot</h1>
+        {/* TODO move to GameInit component */}
+        <section>
+          <button onClick={place}>PLACE</button>
+          <button
+            disabled={gridDimensions.width === 50}
+            onClick={increaseGridWidth}
+          >
+            Width up
+          </button>
+          <button
+            disabled={gridDimensions.width === 1}
+            onClick={decreaseGridWidth}
+          >
+            Width down
+          </button>
+          <button
+            disabled={gridDimensions.height === 50}
+            onClick={increaseGridHeight}
+          >
+            Height up
+          </button>
+          <button
+            disabled={gridDimensions.height === 1}
+            onClick={decreaseGridHeight}
+          >
+            Height down
+          </button>
+        </section>
+      </header>
+
+      <GameStateProvider
+        gridDimensions={gridDimensions}
+        initialPosition={initialPosition}
+      >
         <MainGame />
-      </div>
-    </GameStateProvider>
+      </GameStateProvider>
+    </>
   );
 }
 
@@ -25,18 +98,12 @@ const MainGame = function () {
     orientation,
     currentLocation,
     attemptedInvalidMove,
-    place,
     move,
     report,
     orient,
   } = useGameContext();
   return (
     <main>
-      <section>
-        {/* Later, define grid dynamically here */}
-        <p>init functions: place </p>
-        <button onClick={place}>PLACE</button>
-      </section>
       <section>
         <GameGrid />
 
@@ -45,7 +112,6 @@ const MainGame = function () {
         <p>Is invalid move: {attemptedInvalidMove ? "true" : "false"}</p>
       </section>
       <section>
-        <p> Game controles: Report N | S | E | W orientation MOVE RESET</p>
         <button onClick={move}>Move</button>
         <button onClick={() => orient("NORTH")}>NORTH</button>
         <button onClick={() => orient("SOUTH")}>SOUTH</button>
@@ -55,36 +121,4 @@ const MainGame = function () {
       </section>
     </main>
   );
-};
-
-const GameGrid = function () {
-  const { gridDimensions } = useGameContext();
-
-  return (
-    <section style={{ display: "grid" }}>
-      {Array(gridDimensions.width)
-        .fill(0)
-        .map((_, i) => {
-          return (
-            <section>
-              {Array(gridDimensions.height)
-                .fill(0)
-                .map((_, j) => {
-                  return <Square key={`${i}-${j}`} coord={[i, j]} />;
-                })}
-            </section>
-          );
-        })}
-    </section>
-  );
-};
-
-const Square = function ({ coord }: { coord: Coord }) {
-  const { currentLocation } = useGameContext();
-  return <span>[{doesCoordMatch(coord, currentLocation) ? "*" : " "}]</span>;
-};
-
-const doesCoordMatch = function (coord: Coord, otherCoord: Coord) {
-  console.log(coord);
-  return coord[0] === otherCoord[0] && coord[1] === otherCoord[1];
 };
