@@ -12,7 +12,7 @@ export interface GameState {
   orient: (direction: Orientation) => void;
 }
 
-type Orientation = "NORTH" | "SOUTH" | "EAST" | "WEST";
+export type Orientation = "NORTH" | "SOUTH" | "EAST" | "WEST";
 
 const Movements: Record<Orientation, Coord> = {
   NORTH: [0, -1],
@@ -22,7 +22,7 @@ const Movements: Record<Orientation, Coord> = {
 };
 
 const gameDefaults = {
-  orientation: "NORTH",
+  orientation: "NORTH" as Orientation,
   currentLocation: [0, 0] as Coord,
   attemptedInvalidMove: false,
   gridDimensions: { height: 0, width: 0 },
@@ -61,7 +61,7 @@ export const GameStateProvider = ({
       setAttemptedInvalidMove(true);
       setTimeout(() => {
         setAttemptedInvalidMove(false);
-      }, 2000);
+      }, 500);
     }
   }
 

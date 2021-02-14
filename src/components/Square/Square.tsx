@@ -1,5 +1,6 @@
-import { Coord, useGameContext } from "../../context/GameContext";
-//todo setup filepaths in config
+import { Coord, useGameContext, Orientation } from "../../context/GameContext";
+import styled from "styled-components";
+import AndroidIcon from "@material-ui/icons/Android";
 
 const Square = function ({ coord }: { coord: Coord }) {
   const {
@@ -8,32 +9,40 @@ const Square = function ({ coord }: { coord: Coord }) {
     orientation,
   } = useGameContext();
   const isRobot = doesCoordMatch(coord, currentLocation);
-  //TODO styled components
-  const backgroundColor = isRobot
-    ? attemptedInvalidMove
-      ? "red"
-      : "blue"
-    : "grey";
-  const border = isRobot ? "1px solid white" : "1px solid transparent"; //TODO border from orientaiton
-  // const showAnimation = attemptedInvalidMove ? "1px solid" : undefined;
+
   return (
-    <span
+    <StyledSquare
+      isRobot={isRobot}
+      attemptedInvalidMove={attemptedInvalidMove}
+      orientation={orientation}
       data-testid="gridItem"
-      style={{
-        height: "20px",
-        width: "20px",
-        // display: "inline-block",
-        backgroundColor,
-        border,
-      }}
     >
-      {isRobot ? "x" : "o"}
-    </span>
+      {isRobot && <AndroidIcon />}
+    </StyledSquare>
   );
 };
 
 const doesCoordMatch = function (coord: Coord, otherCoord: Coord) {
   return coord[0] === otherCoord[0] && coord[1] === otherCoord[1];
 };
+
+type StyledSquareProps = {
+  isRobot: boolean;
+  attemptedInvalidMove: boolean;
+  orientation: Orientation;
+};
+
+const StyledSquare = styled.span<StyledSquareProps>`
+  height: 3em;
+  width: 3em;
+  background-color: ${({ isRobot, attemptedInvalidMove, theme }) => {
+    return isRobot
+      ? attemptedInvalidMove
+        ? theme.palette.error.main
+        : theme.palette.primary.main
+      : theme.palette.secondary.main;
+  }};
+  border: 1px solid white;
+`;
 
 export default Square;

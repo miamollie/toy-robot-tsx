@@ -5,8 +5,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 Implements the Toy Robot code test.
 
 ## TODO
-- Add tests with RTL
-- Styles with css-in-js
+- Make a11y improvements
+- add style to active orientation button and disable
+- Styles with styled components
 - Add nice transition animations to move the Robot
 - optimize for performance
 - dark mode/light mode

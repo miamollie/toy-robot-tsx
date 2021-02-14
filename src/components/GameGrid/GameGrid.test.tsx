@@ -1,6 +1,5 @@
 import React from "react";
 import { render, screen, within } from "@testing-library/react";
-// import { within } from "@testing-library/dom";
 import { GameStateProvider } from "../../context/GameContext";
 import GameGrid from "./";
 
