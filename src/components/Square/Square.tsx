@@ -33,8 +33,8 @@ type StyledSquareProps = {
 };
 
 const StyledSquare = styled.span<StyledSquareProps>`
-  height: 3em;
-  width: 3em;
+  height: 3rem;
+  width: 3rem;
   background-color: ${({ isRobot, attemptedInvalidMove, theme }) => {
     return isRobot
       ? attemptedInvalidMove
@@ -46,3 +46,19 @@ const StyledSquare = styled.span<StyledSquareProps>`
 `;
 
 export default Square;
+
+
+      // trasform:  ${({ orientation, isRobot }) =>
+//   // isRobot && `rotate(${getDegreeFromOrientation(orientation)})`}
+// function getDegreeFromOrientation(orientation: Orientation) {
+//   switch (orientation) {
+//     case "NORTH":
+//       return 0;
+//     case "SOUTH":
+//       return 180;
+//     case "EAST":
+//       return 90;
+//     default:
+//       return 0;
+//   }
+// }

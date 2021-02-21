@@ -9,17 +9,17 @@ const lightTheme = createMuiTheme({
   },
   palette: {
     primary: {
-      // light: string,
+      light: "#E1DFE1",
       main: "#82bec3",
       dark: "#408e99",
     },
     secondary: {
-      // light: string,
+      light: "#727472",
       main: "#f0d2d0",
-      dark: "#727472",
+      dark: "#cc9894",
     },
     error: {
-      main: "#a01919",
+      main: "#813745",
     },
   },
   breakpoints: {
@@ -36,7 +36,8 @@ const lightTheme = createMuiTheme({
 export default lightTheme;
 
 // teal: #82bec3
-// pink : #f0d2d0
 // dark teal: #408e99
+// pink : #f0d2d0
 // dark grey: #727472
-// light grey
+// light grey: #E1DFE1
+// dark pink: #cc9894

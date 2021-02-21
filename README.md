@@ -4,11 +4,16 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 Implements the Toy Robot code test.
 
+## TODO Styles
+- orient the robot in the direction it's facing
+- center the game controls
+- add style to active orientation button and disable
+- Add nice transition animations to move the Robot; should slide between boxes
+
+
 ## TODO
 - Make a11y improvements
-- add style to active orientation button and disable
-- Styles with styled components
-- Add nice transition animations to move the Robot
+- deploy to netlify
 - optimize for performance
 - dark mode/light mode
 ## Available Scripts
