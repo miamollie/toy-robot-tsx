@@ -14,10 +14,15 @@ const Square = function ({ coord }: { coord: Coord }) {
     <StyledSquare
       isRobot={isRobot}
       attemptedInvalidMove={attemptedInvalidMove}
-      orientation={orientation}
       data-testid="gridItem"
     >
-      {isRobot && <AndroidIcon />}
+      {isRobot && (
+        <StyledRobot
+          orientation={orientation}
+          fontSize="large"
+          color="action"
+        />
+      )}
     </StyledSquare>
   );
 };
@@ -29,12 +34,14 @@ const doesCoordMatch = function (coord: Coord, otherCoord: Coord) {
 type StyledSquareProps = {
   isRobot: boolean;
   attemptedInvalidMove: boolean;
-  orientation: Orientation;
 };
 
 const StyledSquare = styled.span<StyledSquareProps>`
   height: 3rem;
   width: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: ${({ isRobot, attemptedInvalidMove, theme }) => {
     return isRobot
       ? attemptedInvalidMove
@@ -47,18 +54,20 @@ const StyledSquare = styled.span<StyledSquareProps>`
 
 export default Square;
 
+const StyledRobot = styled(AndroidIcon)<{ orientation: Orientation }>`
+  transform: ${({ orientation }) =>
+    `rotate(${getDegreeFromOrientation(orientation)}deg)`};
+`;
 
-      // trasform:  ${({ orientation, isRobot }) =>
-//   // isRobot && `rotate(${getDegreeFromOrientation(orientation)})`}
-// function getDegreeFromOrientation(orientation: Orientation) {
-//   switch (orientation) {
-//     case "NORTH":
-//       return 0;
-//     case "SOUTH":
-//       return 180;
-//     case "EAST":
-//       return 90;
-//     default:
-//       return 0;
-//   }
-// }
+function getDegreeFromOrientation(orientation: Orientation) {
+  switch (orientation) {
+    case "WEST":
+      return 270;
+    case "SOUTH":
+      return 180;
+    case "EAST":
+      return 90;
+    default:
+      return 0;
+  }
+}
